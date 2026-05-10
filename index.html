@@ -5,72 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geleceğin En Güzel Anne Adayına ✨</title>
     <style>
-        * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             background-color: #fff5f7;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
-            touch-action: manipulation;
         }
 
         .container {
             text-align: center;
-            padding: 25px;
+            padding: 35px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
-            width: 90%;
-            max-width: 400px;
-            border: 2px solid #ffc1cc;
+            border-radius: 40px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
+            max-width: 80%;
+            border: 3px solid #ffc1cc;
             position: relative;
             z-index: 5;
-            animation: bounceIn 1.2s ease-out;
+            animation: bounceIn 1.5s ease-out;
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .flower-icon { font-size: 50px; margin-bottom: 10px; display: block; }
-        h1 { color: #d63384; font-size: 22px; margin-bottom: 15px; }
-        p { color: #444; font-size: 16px; line-height: 1.6; margin: 10px 0; }
-        
+        .flower-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #444;
+            font-size: 19px;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
         .highlight {
             color: #ff4d6d;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 24px;
             display: block;
             margin: 15px 0;
-            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .gif-container img {
-            width: 100%;
-            max-width: 200px;
-            border-radius: 20px;
-            margin-top: 15px;
+            width: 220px;
+            border-radius: 25px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .petal {
             position: absolute;
             background-color: #ffc1cc;
             border-radius: 150% 0 150% 0;
-            opacity: 0.6;
+            opacity: 0.7;
             pointer-events: none;
             animation: drift 5s infinite linear;
             z-index: 1;
         }
 
         @keyframes drift {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(360deg); }
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); }
         }
     </style>
 </head>
@@ -89,25 +103,22 @@
     </div>
 
     <script>
-        // Çiçek yaprağı oluşturma fonksiyonu
         function createPetal() {
             const petal = document.createElement('div');
             petal.className = 'petal';
             petal.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 12 + 8 + 'px';
+            const size = Math.random() * 15 + 10 + 'px';
             petal.style.width = size;
             petal.style.height = size;
-            petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
+            petal.style.backgroundColor = ["#ffc1cc", "#ffb7c5", "#ffdae0"][Math.floor(Math.random()*3)];
             document.body.appendChild(petal);
 
-            // Ekrandan çıkan yaprakları temizle
             setTimeout(() => {
                 petal.remove();
-            }, 5000);
+            }, 6000);
         }
-
-        // Yaprakları sürekli oluştur
-        setInterval(createPetal, 300);
+        setInterval(createPetal, 250);
     </script>
 </body>
 </html>
