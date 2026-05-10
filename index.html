@@ -19,20 +19,6 @@
             touch-action: manipulation;
         }
 
-        /* Başlatma Katmanı */
-        #overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff5f7;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: opacity 0.5s ease;
-        }
-
         .container {
             text-align: center;
             padding: 25px;
@@ -86,34 +72,9 @@
             0% { transform: translateY(-10vh) rotate(0deg); }
             100% { transform: translateY(110vh) rotate(360deg); }
         }
-
-        #music-btn {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-
-    <div id="overlay" onclick="startEverything()">
-        <span style="font-size: 60px; margin-bottom: 20px;">💝</span>
-        <p style="color: #d63384; font-weight: bold;">Sana küçük bir mesajım var...</p>
-        <button id="music-btn">Tıkla ve Aç ✨</button>
-    </div>
-
-    <audio id="bgMusic" loop>
-        <!-- Önce senin dosyanı dener, çalışmazsa internetteki romantik piyano linkine geçer -->
-        <source src="muzik.mp3" type="audio/mpeg">
-        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3" type="audio/mpeg">
-    </audio>
 
     <div class="container">
         <span class="flower-icon">🌸🌷🌺</span>
@@ -128,28 +89,7 @@
     </div>
 
     <script>
-        function startEverything() {
-            const music = document.getElementById('bgMusic');
-            music.volume = 0.5; // Ses seviyesi %50
-            
-            // Müziği oynatmayı dene
-            let playPromise = music.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(_ => {
-                    // Müzik başarıyla başladı, ekranı yumuşakça kaybet
-                    document.getElementById('overlay').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('overlay').style.display = 'none';
-                    }, 500); // Parantez hatası düzeltildi
-                }).catch(error => {
-                    console.log("Müzik çalma hatası:", error);
-                    // Müzik çalamasa bile sayfa açılsın
-                    document.getElementById('overlay').style.display = 'none';
-                });
-            }
-        }
-
+        // Çiçek yaprağı oluşturma fonksiyonu
         function createPetal() {
             const petal = document.createElement('div');
             petal.className = 'petal';
@@ -159,8 +99,14 @@
             petal.style.height = size;
             petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 5000);
+
+            // Ekrandan çıkan yaprakları temizle
+            setTimeout(() => {
+                petal.remove();
+            }, 5000);
         }
+
+        // Yaprakları sürekli oluştur
         setInterval(createPetal, 300);
     </script>
 </body>
