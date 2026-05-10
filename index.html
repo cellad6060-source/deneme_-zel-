@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>En Güzel Anne Adayına ✨</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fff5f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 40px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
+            max-width: 80%;
+            border: 3px solid #ffc1cc;
+            position: relative;
+            z-index: 5;
+            animation: bounceIn 1.5s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .flower-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #444;
+            font-size: 19px;
+            line-height: 1.8;
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: #ff4d6d;
+            font-weight: bold;
+            font-size: 24px;
+            display: block;
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .gif-container img {
+            width: 220px;
+            border-radius: 25px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #ffc1cc;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: drift 5s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="flower-icon">🌸🌷🌺</span>
+        <h1>Canım Bebişim,</h1>
+        <p>Bugün senin de günün... Kalbinin saflığı ve o eşsiz şefkatinle benim gözümde sen;</p>
+        <span class="highlight">Dünyanın en güzel anne adayısın! 🤱✨</span>
+        <p>Anneler günün kutlu olsun, seni her şeyden çok seviyorum.</p>
+        
+        <div class="gif-container">
+            <img src="https://media.tenor.com/7bA_vNIno_AAAAAi/peach-goma.gif" alt="Sevgilerle">
+        </div>
+    </div>
+
+    <script>
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 15 + 10 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
+            petal.style.backgroundColor = ["#ffc1cc", "#ffb7c5", "#ffdae0"][Math.floor(Math.random()*3)];
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 6000);
+        }
+        setInterval(createPetal, 250);
+    </script>
+</body>
+</html>
