@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geleceğin En Güzel Anne Adayına ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>En Güzel Anne Adayına ✨</title>
     <style>
         body {
             margin: 0;
@@ -11,80 +11,87 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #fff5f7;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* Çiçeklerin taşmasını engeller */
+            touch-action: none;
         }
 
         .container {
             text-align: center;
-            padding: 35px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
-            max-width: 80%;
-            border: 3px solid #ffc1cc;
+            padding: 25px 20px;
+            background: rgba(255, 255, 255, 0.9); /* Biraz daha şeffaf yaptık ki arkası hissedilsin */
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            width: 85%; /* Mobilde kutuyu biraz daralttık */
+            max-width: 350px; /* Tablet/PC'de çok yayılmasın */
+            border: 2px solid #ffc1cc;
             position: relative;
-            z-index: 5;
-            animation: bounceIn 1.5s ease-out;
+            z-index: 10;
+            animation: bounceIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
+            0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .flower-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
+            font-size: 45px;
+            margin-bottom: 10px;
             display: block;
         }
 
         h1 {
             color: #d63384;
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
 
         p {
             color: #444;
-            font-size: 19px;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.6;
             margin: 10px 0;
         }
 
         .highlight {
             color: #ff4d6d;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 1.3rem;
             display: block;
             margin: 15px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .gif-container img {
-            width: 220px;
-            border-radius: 25px;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 150px; /* Mobilde GIF'i küçülttük */
+            border-radius: 20px;
+            margin-top: 15px;
         }
 
+        /* Çiçek Yaprakları */
         .petal {
             position: absolute;
             background-color: #ffc1cc;
             border-radius: 150% 0 150% 0;
-            opacity: 0.7;
+            opacity: 0.6;
             pointer-events: none;
-            animation: drift 5s infinite linear;
-            z-index: 1;
+            animation: drift 6s infinite linear;
+            z-index: 1; /* Kutunun arkasında kalacaklar */
         }
 
         @keyframes drift {
-            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); }
+            0% { 
+                transform: translateY(-10vh) rotate(0deg) translateX(0); 
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { 
+                transform: translateY(110vh) rotate(360deg) translateX(80px); 
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -94,8 +101,8 @@
         <span class="flower-icon">🌸🌷🌺</span>
         <h1>Canım Bebişim,</h1>
         <p>Bugün senin de günün... Kalbinin saflığı ve o eşsiz şefkatinle benim gözümde sen;</p>
-        <span class="highlight">Geleceğin En Güzel Anne Adayısın! 🤱✨</span>
-        <p>Anneler günün kutlu olsun, seni her şeyden çok seviyorum.</p>
+        <span class="highlight">Dünyanın en güzel anne adayısın! 🤱✨</span>
+        <p>Anneler günün kutlu olsun,<br>seni her şeyden çok seviyorum.</p>
         
         <div class="gif-container">
             <img src="https://media.tenor.com/7bA_vNIno_AAAAAi/peach-goma.gif" alt="Sevgilerle">
@@ -106,19 +113,30 @@
         function createPetal() {
             const petal = document.createElement('div');
             petal.className = 'petal';
+            
+            // Ekran genişliğine göre rastgele başlangıç
             petal.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 15 + 10 + 'px';
+            
+            // Rastgele boyutlar
+            const size = Math.random() * 12 + 8 + 'px';
             petal.style.width = size;
             petal.style.height = size;
-            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
-            petal.style.backgroundColor = ["#ffc1cc", "#ffb7c5", "#ffdae0"][Math.floor(Math.random()*3)];
+            
+            // Rastgele hız ve renk
+            petal.style.animationDuration = Math.random() * 4 + 4 + 's';
+            const colors = ["#ffc1cc", "#ffb7c5", "#ffdae0", "#ffd1dc"];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
             document.body.appendChild(petal);
 
+            // Belleği temizlemek için yaprağı sil
             setTimeout(() => {
                 petal.remove();
-            }, 6000);
+            }, 8000);
         }
-        setInterval(createPetal, 250);
+
+        // Çiçek sıklığını telefonda kasmaması için 300ms yaptık
+        setInterval(createPetal, 300);
     </script>
 </body>
 </html>
