@@ -19,17 +19,18 @@
             touch-action: manipulation;
         }
 
-        /* Başlatma Katmanı (Müzik İçin) */
+        /* Başlatma Katmanı */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 245, 247, 0.9);
+            background: #fff5f7;
             z-index: 1000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            transition: 0.5s;
         }
 
         .container {
@@ -88,27 +89,29 @@
 
         #music-btn {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 15px 30px;
             background: #ff4d6d;
             color: white;
             border: none;
-            border-radius: 20px;
+            border-radius: 30px;
             font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- İlk tıkla müziği başlatan ekran -->
     <div id="overlay" onclick="startEverything()">
-        <span style="font-size: 50px;">🎁</span>
-        <p>Senin için bir sürprizim var...</p>
+        <span style="font-size: 60px; margin-bottom: 20px;">💝</span>
+        <p style="color: #d63384; font-weight: bold;">Sana küçük bir mesajım var...</p>
         <button id="music-btn">Tıkla ve Aç ✨</button>
     </div>
 
     <audio id="bgMusic" loop>
-        <!-- Müzik linkini daha stabil bir linkle güncelledim -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- Romantik Piyano / Romantik Enstrümantal Müzik -->
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
@@ -125,12 +128,14 @@
 
     <script>
         function startEverything() {
-            // Müziği başlat
             const music = document.getElementById('bgMusic');
-            music.play().catch(e => console.log("Müzik başlatılamadı:", e));
+            music.volume = 0.5; // Ses seviyesini %50 yapıyoruz
+            music.play().catch(e => console.log("Müzik hatası:", e));
             
-            // Overlay'i kaldır
-            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+            }, 500;
         }
 
         function createPetal() {
