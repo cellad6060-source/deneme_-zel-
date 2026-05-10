@@ -19,7 +19,6 @@
             touch-action: manipulation;
         }
 
-        /* Başlatma Katmanı */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -30,7 +29,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: 0.5s;
+            transition: opacity 0.5s;
         }
 
         .container {
@@ -110,8 +109,8 @@
     </div>
 
     <audio id="bgMusic" loop>
-        <!-- Romantik Piyano / Romantik Enstrümantal Müzik -->
-        <source src="muzik.mp3" type="audio/mpeg">
+        <!-- Eğer kendi müzik dosyan hala robotik geliyorsa, şu an eklediğim yedek romantik linki dene -->
+        <source src="https://pixabay.com/music/solo-piano-romantic-504964/" type="audio/mpeg">
     </audio>
 
     <div class="container">
@@ -129,13 +128,24 @@
     <script>
         function startEverything() {
             const music = document.getElementById('bgMusic');
-            music.volume = 0.5; // Ses seviyesini %50 yapıyoruz
-            music.play().catch(e => console.log("Müzik hatası:", e));
+            music.volume = 0.5;
             
-            document.getElementById('overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('overlay').style.display = 'none';
-            }, 500;
+            // Müziği oynatmayı dene
+            let playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Müzik başladı, ekranı kapat
+                    document.getElementById('overlay').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('overlay').style.display = 'none';
+                    }, 500);
+                }).catch(error => {
+                    console.log("Müzik çalma hatası:", error);
+                    // Hata olsa bile ekranı kapat ki içeriği görsün
+                    document.getElementById('overlay').style.display = 'none';
+                });
+            }
         }
 
         function createPetal() {
@@ -145,7 +155,7 @@
             const size = Math.random() * 12 + 8 + 'px';
             petal.style.width = size;
             petal.style.height = size;
-            petal.style.animationDuration = Math.random() * 2 + 3 + 's';
+            petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(petal);
             setTimeout(() => { petal.remove(); }, 5000);
         }
