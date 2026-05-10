@@ -21,15 +21,16 @@
         .container {
             text-align: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.85); /* Şeffaflığı artırdık */
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 25px;
             box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
-            /* Kutuyu iyice daralttık */
-            width: 70%; 
-            max-width: 280px; 
+            /* Kutuyu daha da küçülttük */
+            width: 65%; 
+            max-width: 260px; 
             border: 2px solid #ffc1cc;
             position: relative;
-            z-index: 10;
+            /* Kutunun z-index'ini düşük tuttuk ki çiçekler önüne geçebilsin */
+            z-index: 5; 
             animation: bounceIn 1.2s ease-out;
         }
 
@@ -46,28 +47,27 @@
 
         h1 {
             color: #d63384;
-            font-size: 1.2rem;
-            margin: 10px 0;
+            font-size: 1.1rem;
+            margin: 8px 0;
         }
 
         p {
             color: #444;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin: 8px 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 5px 0;
         }
 
         .highlight {
             color: #ff4d6d;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             display: block;
-            margin: 12px 0;
-            line-height: 1.3;
+            margin: 10px 0;
         }
 
         .gif-container img {
-            width: 120px; /* GIF'i de orantılı küçülttük */
+            width: 110px;
             border-radius: 15px;
             margin-top: 10px;
         }
@@ -77,10 +77,11 @@
             position: absolute;
             background-color: #ffc1cc;
             border-radius: 150% 0 150% 0;
-            opacity: 0.6;
+            opacity: 0.8;
             pointer-events: none;
             animation: drift 5s infinite linear;
-            z-index: 1;
+            /* Çiçeklerin kutunun (z-index: 5) önünden geçmesini sağlar */
+            z-index: 99; 
         }
 
         @keyframes drift {
@@ -88,10 +89,10 @@
                 transform: translateY(-10vh) rotate(0deg) translateX(0); 
                 opacity: 0;
             }
-            15% { opacity: 0.7; }
-            85% { opacity: 0.7; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
             100% { 
-                transform: translateY(110vh) rotate(360deg) translateX(100px); 
+                transform: translateY(110vh) rotate(360deg) translateX(120px); 
                 opacity: 0;
             }
         }
@@ -115,25 +116,29 @@
         function createPetal() {
             const petal = document.createElement('div');
             petal.className = 'petal';
+            
+            // Ekranın her yerinden (kutunun üstü dahil) geçmeleri için rastgele konum
             petal.style.left = Math.random() * 100 + 'vw';
             
-            const size = Math.random() * 10 + 7 + 'px';
+            const size = Math.random() * 10 + 8 + 'px';
             petal.style.width = size;
             petal.style.height = size;
             
-            petal.style.animationDuration = Math.random() * 3 + 4 + 's';
-            const colors = ["#ffc1cc", "#ffb7c5", "#ffdae0", "#ffd1dc"];
+            petal.style.animationDuration = Math.random() * 2 + 4 + 's';
+            
+            // Farklı tonlarda pembe/çiçek renkleri
+            const colors = ["#ffc1cc", "#ffb7c5", "#ffdae0", "#ffd1dc", "#ff69b4"];
             petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             
             document.body.appendChild(petal);
 
             setTimeout(() => {
                 petal.remove();
-            }, 7000);
+            }, 6000);
         }
 
-        // Çiçeklerin daha yoğun görünmesi için süreyi kısalttım
-        setInterval(createPetal, 200);
+        // Çiçeklerin kutunun önünden geçtiği belli olsun diye sıklığı artırdım
+        setInterval(createPetal, 150);
     </script>
 </body>
 </html>
