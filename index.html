@@ -3,98 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>En Güzel Anne Adayına ✨</title>
+    <title>Geleceğin En Güzel Anne Adayına ✨</title>
     <style>
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #fff5f7;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Başlatma Katmanı */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff5f7;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
         }
 
         .container {
             text-align: center;
-            padding: 35px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 40px;
-            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.5);
-            max-width: 80%;
-            border: 3px solid #ffc1cc;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+            width: 90%;
+            max-width: 400px;
+            border: 2px solid #ffc1cc;
             position: relative;
             z-index: 5;
-            animation: bounceIn 1.5s ease-out;
+            animation: bounceIn 1.2s ease-out;
         }
 
         @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
+            0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .flower-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        h1 {
-            color: #d63384;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            color: #444;
-            font-size: 19px;
-            line-height: 1.8;
-            margin: 10px 0;
-        }
-
+        .flower-icon { font-size: 50px; margin-bottom: 10px; display: block; }
+        h1 { color: #d63384; font-size: 22px; margin-bottom: 15px; }
+        p { color: #444; font-size: 16px; line-height: 1.6; margin: 10px 0; }
+        
         .highlight {
             color: #ff4d6d;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 20px;
             display: block;
             margin: 15px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            line-height: 1.4;
         }
 
         .gif-container img {
-            width: 220px;
-            border-radius: 25px;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 200px;
+            border-radius: 20px;
+            margin-top: 15px;
         }
 
         .petal {
             position: absolute;
             background-color: #ffc1cc;
             border-radius: 150% 0 150% 0;
-            opacity: 0.7;
+            opacity: 0.6;
             pointer-events: none;
             animation: drift 5s infinite linear;
             z-index: 1;
         }
 
         @keyframes drift {
-            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(50px); }
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        #music-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
+    <div id="overlay" onclick="startEverything()">
+        <span style="font-size: 60px; margin-bottom: 20px;">💝</span>
+        <p style="color: #d63384; font-weight: bold;">Sana küçük bir mesajım var...</p>
+        <button id="music-btn">Tıkla ve Aç ✨</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <!-- Önce senin dosyanı dener, çalışmazsa internetteki romantik piyano linkine geçer -->
+        <source src="muzik.mp3" type="audio/mpeg">
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Warm-Memories-Emotional-Inspiring-Piano.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <span class="flower-icon">🌸🌷🌺</span>
         <h1>Canım Bebişim,</h1>
         <p>Bugün senin de günün... Kalbinin saflığı ve o eşsiz şefkatinle benim gözümde sen;</p>
-        <span class="highlight">Dünyanın en güzel anne adayısın! 🤱✨</span>
+        <span class="highlight">Geleceğin En Güzel Anne Adayısın! 🤱✨</span>
         <p>Anneler günün kutlu olsun, seni her şeyden çok seviyorum.</p>
         
         <div class="gif-container">
@@ -103,22 +128,40 @@
     </div>
 
     <script>
+        function startEverything() {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.5; // Ses seviyesi %50
+            
+            // Müziği oynatmayı dene
+            let playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Müzik başarıyla başladı, ekranı yumuşakça kaybet
+                    document.getElementById('overlay').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('overlay').style.display = 'none';
+                    }, 500); // Parantez hatası düzeltildi
+                }).catch(error => {
+                    console.log("Müzik çalma hatası:", error);
+                    // Müzik çalamasa bile sayfa açılsın
+                    document.getElementById('overlay').style.display = 'none';
+                });
+            }
+        }
+
         function createPetal() {
             const petal = document.createElement('div');
             petal.className = 'petal';
             petal.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 15 + 10 + 'px';
+            const size = Math.random() * 12 + 8 + 'px';
             petal.style.width = size;
             petal.style.height = size;
-            petal.style.animationDuration = Math.random() * 3 + 3 + 's';
-            petal.style.backgroundColor = ["#ffc1cc", "#ffb7c5", "#ffdae0"][Math.floor(Math.random()*3)];
+            petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
             document.body.appendChild(petal);
-
-            setTimeout(() => {
-                petal.remove();
-            }, 6000);
+            setTimeout(() => { petal.remove(); }, 5000);
         }
-        setInterval(createPetal, 250);
+        setInterval(createPetal, 300);
     </script>
 </body>
 </html>
